@@ -1,0 +1,69 @@
+<app-page-header [heading]="'Affichage des processus'" [icon]="'fa-table'"></app-page-header>
+<div class="row">
+    <div class="col col-xl-12 col-lg-12 ">
+        <div class="card mb-3">
+           <div class="card-header" >Processus</div>
+
+<table   class="table table-responsive table-hover">
+    <thead>
+        <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Etat</th>
+                        <th>Durée</th>
+                        <th>Application Source</th>
+                        <th>Application Destinataire</th>
+                        <th>Type de donée</th>
+                       <th>Date d'entrée</th>
+                        <th>Donnée Brut</th>
+        </tr>
+    </thead>
+    <div *ngFor="let proc of procs ; let i = index ">
+    <tbody>
+        <tr> 
+                        <td><span class="fa fa-plus" data-toggle="collapse" [attr.data-target]="'#group-of-rows-' + i" aria-expanded="false" [attr.aria-controls]="'group-of-rows-'+ i"></span> </td>
+                      
+                        <td >{{proc.name}}</td>
+                        <td> <span class="badge" [class.badge-danger]="proc.state=='error'" [class.badge-success]="proc.state=='success'" [class.badge-warning]="proc.state=='warn'">{{proc.state}}</span></td>
+                        <td>{{proc.duration}}</td>
+                        <td>{{proc.appsource}}</td>
+                        <td>{{proc.appdestination}}</td>
+                        <td>{{proc.datatype}}</td>
+                        <td>{{proc.entertime}}</td>
+                       
+                         <!-- App modal Bouton !-->
+                        <td><button class="btn btn-primary" (click)="open(content)">Donnée Brut</button></td>
+                    <ng-template  #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Visualisation de la donnée</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{proc.databrut}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" align="left" class="btn btn-secondary" (click)="saveFile(proc)">Extension {{proc.datatype}}</button>
+                         <button type="button" align="left" class="btn btn-secondary" (click)="txt(proc)">Fichier Texte</button>
+                        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Fermer</button>
+                    </div>
+                    </ng-template>
+
+            
+        </tr>
+    </tbody>
+    <tbody id="group-of-rows-{{i}}" class="collapse">
+        <tr  *ngFor="let evenement of proc.evenements">
+            <td  align="center" colspan="3">
+                <span class="badge" [class.badge-danger]="evenement.etat=='error'" [class.badge-success]="evenement.etat=='success'" [class.badge-warning]="evenement.etat=='warn'">{{evenement.etat}}</span>
+            </td>
+            <td  align="center" colspan="3">{{evenement.description}}</td>
+            <td  align="center" colspan="3">{{evenement.date}}</td>
+        </tr>
+    </tbody>
+    </div>
+</table>
+</div>
+</div>
+</div>

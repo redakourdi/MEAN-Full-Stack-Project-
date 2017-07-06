@@ -1,0 +1,28 @@
+<div class="login-page">
+    <div class="row">
+        <div class="col-md-4 push-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+            <h1>Monitoring JS Console</h1>
+            <form role="form">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" id="" placeholder="Nom complet">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg" id="" placeholder="Pseudo">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text"[(ngModel)]="email" name="email" class="form-control input-underline input-lg" id="" placeholder="Adresse electronique">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" [(ngModel)]="password" name="password"  class="form-control input-underline input-lg" id="" placeholder="Password">
+                    </div>
+                </div>
+                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onRegisterSubmit()"> Register </a>&nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+            </form>
+        </div>
+    </div>
+</div>

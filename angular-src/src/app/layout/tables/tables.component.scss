@@ -1,0 +1,62 @@
+table .collapse.in {
+  display: table-row;
+}
+
+.bggreen2 {
+  background-color: #048444;
+}
+
+.txt-w {
+  color: white;
+}
+
+.txt-b {
+  color: black;
+}
+
+.bgyellow2 {
+  background-color: #FFD800;
+}
+
+.bgred2 {
+  background-color: #C20001;
+}
+
+.thin-end {
+  border-bottom: 2px solid black;
+}
+
+.panel-success > .panel-heading a:link {
+  color: white;
+  text-decoration: underline;
+}
+
+.panel-warning > .panel-heading a:link {
+  color: black;
+  text-decoration: underline;
+}
+
+.panel-danger > .panel-heading a:link {
+  color: white;
+  text-decoration: underline;
+}
+
+.panel-success > .panel-heading {
+  color: white;
+  background-color: #048444;
+}
+
+.panel-warning > .panel-heading {
+  color: black;
+  background-color: #FFD800;
+}
+
+.panel-danger > .panel-heading {
+  color: white;
+  background-color: #C20001;
+}
+
+.condensed {
+  margin: 0px;
+}
+
