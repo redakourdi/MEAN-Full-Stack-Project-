@@ -9,6 +9,7 @@ import {RouterModule, Routes} from '@angular/router' ;
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import {ChartService} from './shared/services/chart.service' ;
 
 import {ProcService} from './shared/services/proc.service' ;
 import {ValidateService} from './shared/services/validate.service' ;
@@ -39,7 +40,7 @@ export function HttpLoaderFactory(http: Http) {
             }
         })
     ],
-    providers: [AuthGuard,ValidateService , AuthService,ProcService],
+    providers: [AuthGuard,ValidateService , AuthService,ProcService,ChartService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

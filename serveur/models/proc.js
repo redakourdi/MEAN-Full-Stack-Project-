@@ -122,7 +122,8 @@ module.exports.addEvent = function(proc){
 
 // Delete a 
 module.exports.removeProc = function(id,callback){
-	var query = {_id: id};
-	Proc.remove(query, callback);
+	
+	Proc.findByIdAndRemove(id, callback);
 }
+
 

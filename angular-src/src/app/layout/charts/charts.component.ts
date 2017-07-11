@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+import { ChartService } from '../../shared/services/chart.service';
 
 @Component({
     selector: 'app-charts',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./charts.component.scss']
 })
 export class ChartsComponent implements OnInit {
+
+   charts : any ; 
     // bar chart
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
@@ -20,8 +24,8 @@ export class ChartsComponent implements OnInit {
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
     ];
     // Doughnut
-    public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-    public doughnutChartData: number[] = [350, 450, 100];
+    public doughnutChartLabels: string[] = [];
+    public doughnutChartData: number[] = [];
     public doughnutChartType: string = 'doughnut';
     // Radar
     public radarChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
@@ -78,6 +82,7 @@ export class ChartsComponent implements OnInit {
     ];
     public lineChartLegend: boolean = true;
     public lineChartType: string = 'line';
+    public pourcentages=[];
 
     // events
     public chartClicked(e: any): void {
@@ -109,6 +114,33 @@ export class ChartsComponent implements OnInit {
         * assign it;
         */
     }
-    constructor() { }
-    ngOnInit() { }
+    constructor(
+        private chartService:ChartService ,
+        private router : Router , 
+
+        ) { }
+    
+    public initChart(pourcentages){
+       this.doughnutChartLabels=[];
+       this.doughnutChartData=[] ;
+
+    pourcentages.forEach(item => {
+          this.doughnutChartLabels.push(item.nationalite);
+          this.doughnutChartData.push(item.pourcentage);
+
+    })
+
+    }
+    ngOnInit() { 
+        this.chartService.getStats().subscribe(response => {this.pourcentages=response},
+                                                error => console.log(error),
+                                                () => {
+                                                    console.log("done !");
+                                                    console.log(this.pourcentages);
+                                                    this.initChart(this.pourcentages);
+                                                    console.log("look at dognhut chart !")
+                                                } )
+        
+
+    }
 }
