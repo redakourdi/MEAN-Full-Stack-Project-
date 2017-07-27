@@ -1,15 +1,27 @@
 <app-page-header [heading]="'Charts'" [icon]="'fa-bar-chart-o'"></app-page-header>
 <div class="row">
-    <div class="col col-sm-7">
+    <div class="col col-sm-8">
         <div class="card mb-3">
             <div class="card-header">
                 Doughnut Chart
             </div>
-            <div class="card-block">
-                <canvas baseChart height="250x"  *ngIf="doughnutChartLabels.length>0"  [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            <div class="card-block ">
+
+            <div class="form-group row">
+                <!-- <label>   Get your Stats ! </label> -->
+                <select class="form-control col-md-10" [(ngModel)]="typeChart" >
+                    <option value="nationality" (click)="initTypeChart();" >Nationalité</option>
+                     <option  value="state" (click)="initTypeChart();">Etat des processus</option>
+                    <!--<option>Application Source</option>
+                    <option>Application Destination</option> -->
+                </select>
+                <button class="btn btn-sm btn-primary rounded-0 col-md-2" (click)="initTypeChart()"> Valider </button>
+            </div>
+                <canvas baseChart height="175x"  *ngIf="doughnutChartLabels.length>0"  [(data)]="doughnutChartData" [(labels)]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
                 </canvas>
             </div>
         </div>
+    </div>
     </div>
 
 
@@ -24,5 +36,6 @@
                 </canvas>
             </div>
         </div>
-    </div> --> </div>
+    </div> --> 
+              
 

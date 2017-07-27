@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
          	console.log("Done !")
             localStorage.setItem('isLoggedin', 'true');
             console.log("going to root !")
-            this.router.navigate(['/']);
+            this.router.navigate(['/tables']);
          } else {
 
             

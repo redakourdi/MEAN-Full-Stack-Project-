@@ -23,56 +23,69 @@ router.get('/listerAll' , function(req,res){
                                //GetStats
                                         //GetStats
                                                  //GetStats
-   router.get('/getStats' , function(req,res){            //
-	Proc.getProcs(function(err,procs){                     //
+   router.get('/getStats/:type' , function(req,res){            //
+	Proc.getProcs(function(err,procs){ 
+		let type=  req.params.type ;   
+		      //
+		console.log(type) ; 
 		if (err) {                                           //
 			throw err ;                                       //
 		}                                                      //
-		  obj = procs ;                                         //                                 
-		 var arr = [] ;                                          //
+		 obj = procs ;                                         //                                 
+		 var arr = [] ; 
+		 if (type == "nationality"){                                         //
           for(var i=0 ; i<obj.length ; i++) // boucle qui parcoure les procs , parse la donnée brut et l'insère dans un nouveau tableau 
-		 {                                                                                          //
-            if (obj[i].datatype == "xml"){                                                         //                        // Vérifie le format Xml
-               parseString(obj[i].databrut , function (err, result) {                             //
-              arr.push(result.nationality);                                                      //
-          });                                                                                   //
-                                                                                               //
-                                                                                              //
-            } else if (obj[i].datatype == "json"){                                           //                              // Vérifie le format Json
-                                                                                            //
-             tab = JSON.parse(obj[i].databrut) ;                                           //
-		 	arr.push(tab.nationality) ;                                                   //
-         }   else {                                                                      //
-         	console.log("Pas de recherche sur ce format de donnée") ;                   //                                 // Retourne une alert si pas xml ou Json
-         }                                                                             //
+		 {                                                                                              //
+            if (obj[i].datatype == "xml"){                                                             //    // Vérifie le format Xml
+               parseString(obj[i].databrut , function (err, result) {                                 //
+              arr.push(result.nationality);                                                          //
+          });                                                                                       //
+                                                                                                   //
+                                                                                                  //
+           } else if (obj[i].datatype == "json"){                                                //     // Vérifie le format Json
+                                                                                                //
+             tab = JSON.parse(obj[i].databrut) ;                                               //
+		 	arr.push(tab.nationality) ;                                                       //
+         }   else {                                                                          //
+         	console.log("Pas de recherche sur ce format de donnée") ; } 
+         } 
+
+         } 
+         	else {
+         		 for(var i=0 ; i<obj.length ; i++) {
+         		 	  arr.push(obj[i][type]) ;
+         		 }
+
+          } 
                                                                                       //
-          }                                                                          //
-          console.log(arr);                                                         //                 
-         function foo(arr) {                                                       //
-    var a = [], b = [], prev;                                                     //
-    arr.sort();                                                                  //
-    for ( var i = 0; i < arr.length; i++ ) {                                    //
-        if ( arr[i] !== prev ) {                                               //
-            a.push(arr[i]);                                                   //
-            b.push(1);                                                       //
-        } else {                                                            //
-            b[b.length-1]++;                                               //
-        }                                                                 //
-        prev = arr[i];                                                   //
-    }                                                                   //
-                                                                       //
-    return [a, b];                                                    //
-}                                                                    //
-                                                                    //
-    var result = foo(arr);                                         //
-    var pourcentages = [];                                        //
-    for (var i = 0; i < result[0].length ; i++){                 //      
-	var perc = { nationalite : ""};                             //                        
-    perc.nationalite = result[0][i];                           //
-    perc.pourcentage = (result[1][i]/arr.length)*100;         //
-	pourcentages.push(perc);                                 //
-}                                                           //
-   //console.log(pourcentages);                            //
+                                                                                     //                 
+         function foo(arr) {                                                        //
+    var a = [], b = [], prev;                                                      //
+    arr.sort();                                                                   //
+    for ( var i = 0; i < arr.length; i++ ) {                                     //
+        if ( arr[i] !== prev ) {                                                //
+            a.push(arr[i]);                                                    //
+            b.push(1);                                                        //
+        } else {                                                             //
+            b[b.length-1]++;                                                //
+        }                                                                  //
+        prev = arr[i];                                                    //
+    }                                                                    //
+                                                                        //
+    return [a, b];                                                     //
+}                                                                     //
+                                                                     //
+    var result = foo(arr);                                          //
+    var pourcentages = [];                                         //
+    for (var i = 0; i < result[0].length ; i++){                  //      
+	var perc = { critere : ""};                              //                        
+    perc.critere = result[0][i];                            //
+    perc.pourcentage = (result[1][i]/arr.length)*100;          //
+	pourcentages.push(perc);                                  //
+}                                                            //
+                                                  //
+    console.log(pourcentages) ;                            //
+   //console.log(pourcentages);                           //
     res.json(pourcentages)                               //  
                                                //GetStats 
 	}) ;                              //GetStats
@@ -144,8 +157,8 @@ router.get('/temporaire/:id',function( req , res){
 			throw err;
 		}
 		proc.evenements.push({"etat" : "success", "description" : "Produit disponible","date" : new Date()});
-		proc.evenements.push({"etat" : "success", "description" : "Fond disponible","date" : new Date()});
-		proc.evenements.push({"etat" : "success", "description" : "Achat reussi","date" : new Date()});
+		proc.evenements.push({"etat" : "warn", "description" : "Fond disponible avec contraintes","date" : new Date()});
+		proc.evenements.push({"etat" : "warn", "description" : "Achat reussi avec un warn","date" : new Date()});
 		Proc.addEvent(proc);
 		console.log("succes");
 		

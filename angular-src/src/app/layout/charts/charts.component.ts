@@ -10,6 +10,7 @@ import { ChartService } from '../../shared/services/chart.service';
 export class ChartsComponent implements OnInit {
 
    charts : any ; 
+   typeChart='nationality';
     // bar chart
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
@@ -114,6 +115,11 @@ export class ChartsComponent implements OnInit {
         * assign it;
         */
     }
+
+    
+
+
+
     constructor(
         private chartService:ChartService ,
         private router : Router , 
@@ -124,23 +130,45 @@ export class ChartsComponent implements OnInit {
        this.doughnutChartLabels=[];
        this.doughnutChartData=[] ;
 
-    pourcentages.forEach(item => {
-          this.doughnutChartLabels.push(item.nationalite);
-          this.doughnutChartData.push(item.pourcentage);
 
+    pourcentages.forEach(item => {
+          this.doughnutChartLabels.push(item.critere);
+          this.doughnutChartData.push(item.pourcentage);
     })
 
     }
-    ngOnInit() { 
-        this.chartService.getStats().subscribe(response => {this.pourcentages=response},
-                                                error => console.log(error),
-                                                () => {
-                                                    console.log("done !");
-                                                    console.log(this.pourcentages);
-                                                    this.initChart(this.pourcentages);
-                                                    console.log("look at dognhut chart !")
-                                                } )
-        
 
+    initTypeChart(){
+        console.log("U chosed a type ! reload chart ")
+           this.remplirChar();
+
+    }
+
+    remplirChar(){
+       this.doughnutChartLabels.splice(0,this.doughnutChartLabels.length);
+       this.doughnutChartData=[] ;
+       console.log("remplissageChar")
+
+       this.chartService.getStats(this.typeChart).subscribe(response => {
+          this.pourcentages = response;
+          console.log("HERE");
+        },
+        error => console.log(error),
+        () => {
+    
+        })
+
+            for(let i = 0 ; i < this.pourcentages.length ; i++){
+              this.doughnutChartLabels[i] = (this.pourcentages[i].critere);
+              this.doughnutChartData[i] = (this.pourcentages[i].pourcentage);
+        }
+        
+    }
+
+
+    ngOnInit() {
+       this.doughnutChartLabels.splice(0,this.doughnutChartLabels.length);
+       this.doughnutChartData=[] ; 
+        this.remplirChar();
     }
 }

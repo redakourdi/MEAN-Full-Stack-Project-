@@ -1,4 +1,6 @@
-<app-page-header [heading]="'Affichage des processus'" [icon]="'fa-table'"></app-page-header>
+<app-page-header [heading]="'Suivi Technique'" [icon]="'fa-table'"></app-page-header>
+ <input class="form-control mr-sm-2" type="text"  [(ngModel)]="critere.name" placeholder="Search">
+<br>
 <div class="row">
     <div class="col col-xl-12 col-lg-12 ">
         <div class="card mb-3">
@@ -15,28 +17,41 @@
                         <th>Application Source</th>
                         <th>Application Destinataire</th>
                         <th>Type de donée</th>
-                       <th>Date d'entrée</th>
+                        <th>Date d'entrée</th>
                         <th>Donnée Brut</th>
+
+                        <th *ngIf="chosed">Evenements</th>
+
         </tr>
-    </thead>
-    <div *ngFor="let proc of procs ; let i = index ">
-    <tbody>
-        <tr> 
-                        <td><span class="fa fa-plus" data-toggle="collapse" [attr.data-target]="'#group-of-rows-' + i" aria-expanded="false" [attr.aria-controls]="'group-of-rows-'+ i"></span> </td>
+    </thead>  
+    
+    
+    <tbody class="col col-xl-12 col-lg-12 ">
+        
+        <tr  *ngFor="let proc of procs | filterBy: critere ; let i = index "> 
+                        <td align="center" valign="middle"><span class="fa fa-plus" (click)="chosed=!chosed" data-toggle="collapse" [attr.data-target]="'#group-of-rows-' + i" aria-expanded="false" [attr.aria-controls]="'group-of-rows-'+ i"></span> </td>
                       
-                        <td >{{proc.name}}</td>
-                        <td> <span class="badge" [class.badge-danger]="proc.state=='error'" [class.badge-success]="proc.state=='success'" [class.badge-warning]="proc.state=='warn'">{{proc.state}}</span></td>
-                        <td>{{proc.duration}}</td>
-                        <td>{{proc.appsource}}</td>
-                        <td>{{proc.appdestination}}</td>
-                        <td>{{proc.datatype}}</td>
-                        <td>{{proc.entertime}}</td>
+                        <td align="center" valign="middle">{{proc.name}}</td>
+                        <td align="center" valign="middle"> <span class="badge" [class.badge-danger]="proc.state=='error'" [class.badge-success]="proc.state=='success'" [class.badge-warning]="proc.state=='warn'">{{proc.state}}</span></td>
+                        <td align="center" valign="middle">{{proc.duration}}</td>
+                        <td align="center" valign="middle">{{proc.appsource}}</td>
+                        <td align="center" valign="middle">{{proc.appdestination}}</td>
+                        <td align="center" valign="middle">{{proc.datatype}}</td>
+                        <td align="center" valign="middle">{{proc.entertime}}</td>
+                        
+
+                       
                        
                          <!-- App modal Bouton !-->
-                        <td><button class="btn btn-primary" (click)="open(content)">Donnée Brut</button></td>
-                    <ng-template  #content let-c="close" let-d="dismiss">
+                        <td align="center" valign="middle">
+
+                        <button class="btn btn-primary" (click)="open(content)">Donnée Brut</button>
+
+
+
+                                            <ng-template  #content let-c="close" let-d="dismiss">
                     <div class="modal-header">
-                        <h4 class="modal-title">Visualisation de la donnée</h4>
+                        <h4 class="modal-title"> Visualisation de la donnée</h4>
                         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -49,11 +64,11 @@
                          <button type="button" align="left" class="btn btn-secondary" (click)="txt(proc)">Fichier Texte</button>
                         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Fermer</button>
                     </div>
-                    </ng-template>
+                    </ng-template></td>
 
-            
-        </tr>
-    </tbody>
+
+
+
     <tbody id="group-of-rows-{{i}}" class="collapse">
         <tr  *ngFor="let evenement of proc.evenements">
             <td  align="center" colspan="3">
@@ -63,9 +78,13 @@
             <td  align="center" colspan="3">{{evenement.date}}</td>
         </tr>
     </tbody>
-    </div>
-</table>
+            
+        </tr>
+       
+    </tbody>
 
+</table>
 </div>
 </div>
 </div>
+

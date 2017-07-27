@@ -8,6 +8,8 @@
     "start": "node app"
   },
   "dependencies": {
+    "swagger-node-express": "~2.0",
+      "minimist": "*",
     "express": "*",
     "mongoose": "*",
     "bcryptjs": "*",

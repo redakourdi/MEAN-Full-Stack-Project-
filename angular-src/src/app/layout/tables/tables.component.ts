@@ -11,6 +11,8 @@ import * as FileSaver from 'file-saver';
 })
 export class TablesComponent implements OnInit {
 
+    critere = {};
+   
     procs : any ; 
     closeResult: string;
     races: any = [];
@@ -71,6 +73,8 @@ export class TablesComponent implements OnInit {
         }
     }
 
+ 
+
   
      private getProcState(proc) : string{
      let etat = "success" ; 
@@ -88,11 +92,6 @@ export class TablesComponent implements OnInit {
      return etat;
    }
 
-   refreshRaces() {
-this.races = [{ name: 'London' }, { name: 'Lyon' }];
+
 }
-
- 
-
-     }
 

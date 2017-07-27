@@ -1,0 +1,145 @@
+{
+  "swagger": "2.0",
+
+  "info": {
+    "version": "1.0.0",
+    "title": "Sample spec",
+    "description": "Sample spec for Swagger",
+    "termsOfService": "http://swagger.io/terms/"
+  },
+
+  "basePath": "/",
+
+  "tags" : [
+    {"name": "Processus", 
+    "description": "Operations for processus"
+    },
+    {"name": "Users", 
+    "description": "Operations for users"
+    }
+  ],
+
+  "schemes": [
+    "http"
+  ],
+
+  "consumes": [
+    "application/json"
+  ],
+
+  "produces": [
+    "application/json"
+  ],
+
+
+
+
+
+
+
+  "paths":{
+    "/procs/listerAll": {
+      "get": {
+        "tags": ["Processus"],
+        "description": "Returns all procs from the system that the user has access to",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of pets.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/proc"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/procs/listerOne/{id}": {
+      "get": {
+        "tags": ["Processus"],
+        "description": "Returns a proc based on a single ID, if the user does not have access to the proc",
+        "operationId": "find pet by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of proc to fetch",
+            "required": true,
+            "type": "string",
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "proc response",
+            "schema": {
+              "$ref": "#/definitions/proc"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/400error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "proc": {
+        "name":{
+        "type": "string" , 
+        "required" : true },
+
+        "entertime":{
+          "type": "Date" , 
+          "default" : "Date.now"
+           }, 
+          
+          "state":{
+            "type": "string" , 
+            "required" : true
+             } , 
+
+          "duration" :{
+            "type" : "number" , 
+            "required" : true
+          } , 
+
+          "appsource" : {
+            "type" : "string" , 
+            "required" : true 
+          } , 
+
+          "appdestination" : {
+            "type" : "string" , 
+            "required" : true
+          } , 
+
+          "datatype" : {
+            "type" : "string"  
+            } , 
+
+          "databrut" : {
+            "type" : "string" 
+          } , 
+
+          "evenements": {
+              "type" : "array"
+          }
+    },
+
+    "400error" : {
+       "properties": {
+        "message": {
+          "type": "string",
+          "example" : "400 Bad Request"
+        }
+      }
+    }
+  }
+}

@@ -1,15 +1,17 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
     <ul class="list-group">
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <!--<a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'dashboard' | translate }}
+        </a>-->
+          <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'tables' | translate }}
         </a>
-        <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+
+         <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'charts' | translate }}
         </a>
-        <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'tables' | translate }}
-        </a>
-        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        
+        <!--<a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-edit"></i>&nbsp;{{ 'forms' | translate }}
         </a>
         <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
@@ -44,6 +46,6 @@
         </a>
         <a class="list-group-item more-themes" href="http://www.strapui.com/" >
             {{ 'moretheme' | translate }}
-        </a>
+        </a>-->
     </ul>
 </nav>

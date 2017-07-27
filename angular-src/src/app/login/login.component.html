@@ -3,8 +3,7 @@
         <div class="col-md-4 push-md-4">
             <img src="assets/images/logo.png" width="150px" class="user-avatar" />
             <h1>Monitoring JS Console</h1>
-            <form role="form">
-                <div class="form-content">
+                            <div class="form-content">
                     <div class="form-group">
                         <input type="text"  [(ngModel)]="username" [ngModelOptions]="{standalone: true}" class="form-control input-underline input-lg"  placeholder="Nom d'utilisateur">
                     </div>
@@ -16,7 +15,6 @@
                 <a class="btn rounded-btn"  (click)="onLoggedin()"> Log in </a>
                 &nbsp;
                 <a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>
-            </form>
         </div>
     </div>
 </div>
