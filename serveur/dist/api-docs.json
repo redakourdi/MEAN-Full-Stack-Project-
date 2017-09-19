@@ -30,13 +30,7 @@
   "produces": [
     "application/json"
   ],
-
-
-
-
-
-
-
+ 
   "paths":{
     "/procs/listerAll": {
       "get": {
@@ -62,14 +56,14 @@
       "get": {
         "tags": ["Processus"],
         "description": "Returns a proc based on a single ID, if the user does not have access to the proc",
-        "operationId": "find pet by id",
+        "operationId": "find proc by id",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "description": "ID of proc to fetch",
             "required": true,
-            "type": "string",
+            "type": "string"
           }
         ],
         "responses": {
@@ -87,9 +81,122 @@
           }
         }
       }
+    },
+  "/procs/removeProc/{id}": {
+     "delete": {
+       "tags": ["Processus"],
+        "description": "deletes a single proc based on the ID supplied",
+        "operationId": "deleteProc",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the proc to delete",
+            "required": true,
+            "type": "string"
+            }
+        ],
+        "responses": {
+          "204": {
+            "description": "proc deleted",
+
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/400error"
+            }
+          }
+        }
+      }
+    } ,
+
+    "/procs/updateProc/{id}":{ 
+    "put":{
+    "tags":["Processus"],
+    "summary":"Updated Processus",
+    "description":" Update the Processus.",
+    "operationId":"updateProc",
+    "produces":["application/xml","application/json"],
+    "parameters":[
+      {
+      "name":"id",
+      "in":"path",
+      "description":"Id of the proc to delete",
+     "required":true,
+      "type":"string"},
+      {
+        "in":"body",
+        "name":"body",
+        "description":"Updated user object",
+        "required":true,
+        "schema":{"$ref":"#/definitions/proc"}}],
+      "responses":
+       {
+        "400":{"description":"Invalid Proc supplied"},
+        "404":{"description":"Proc not found"},
+
+          }
+        }
+      } , 
+     "/procs/addProc":{
+      "post": {
+        "tags":["Processus"],
+        "description": "Creates a new proc .  Duplicates are allowed",
+        "operationId": "addProc",
+        "parameters": [
+          {
+            "name": "proc",
+            "in": "body",
+            "description": "Proc to Add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/proc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "proc response",
+            "schema": {
+              "$ref": "#/definitions/proc"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/400error"
+            }
+          }
+        }
+      }
+    } , 
+
+    "/users/profile" :  {
+      "get": {
+        "tags": ["Users"],
+        "description": "Returns The user's profile",
+        "produces": [
+          "application/json"
+        ],
+      "responses": {
+         "200": {
+         "description": "A given Profile.",
+          "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          }
+        }
+      }
     }
-  },
-  "definitions": {
+
+
+    } ,
+  
+"definitions": {
     "proc": {
         "name":{
         "type": "string" , 
@@ -132,6 +239,24 @@
               "type" : "array"
           }
     },
+
+    "user" : {
+      name : {
+    type : String
+  }, 
+    email : {
+      type: String,
+      required: true
+    },
+    username: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    }
+  } , 
 
     "400error" : {
        "properties": {

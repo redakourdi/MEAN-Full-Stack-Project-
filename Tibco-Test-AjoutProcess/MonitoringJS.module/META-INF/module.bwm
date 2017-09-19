@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:BW="http://xsd.tns.tibco.com/amf/models/sca/implementationtype/BW" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema" xmlns:compositeext="http://schemas.tibco.com/amx/3.0/compositeext" xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" xmlns:scaext="http://xsd.tns.tibco.com/amf/models/sca/extensions" xmi:id="_OEI34JDfEeeshKFKh_2-TA" targetNamespace="http://tns.tibco.com/bw/composite/MonitoringJS.module" name="MonitoringJS.module" compositeext:version="1.0.0" compositeext:formatVersion="2">
+  <sca:property xmi:id="_Oew-YJDfEeeshKFKh_2-TA" name="BW.DEPLOYMENTUNIT.TYPE" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_Oe6IUJDfEeeshKFKh_2-TA" name="BW.APPNODE.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_Oe_A0JDfEeeshKFKh_2-TA" name="BW.DEPLOYMENTUNIT.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_OfD5UJDfEeeshKFKh_2-TA" name="BW.HOST.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_OfIx0JDfEeeshKFKh_2-TA" name="BW.DOMAIN.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_OfMcMJDfEeeshKFKh_2-TA" name="BW.DEPLOYMENTUNIT.VERSION" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_OfQtoJDfEeeshKFKh_2-TA" name="BW.APPSPACE.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_OfVmIJDfEeeshKFKh_2-TA" name="BW.MODULE.VERSION" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_OfaeoJDfEeeshKFKh_2-TA" name="BW.MODULE.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:component xmi:id="_OK9RkJDfEeeshKFKh_2-TA" name="ComponentProcess" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_OK9RkZDfEeeshKFKh_2-TA" processName="monitoringjs.module.Process"/>
+  </sca:component>
+</sca:composite>

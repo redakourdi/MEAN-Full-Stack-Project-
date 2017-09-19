@@ -36,7 +36,7 @@ var procSchema = mongoose.Schema({
     	 } , 
 
     duration :{
-    	type : Number , 
+    	type : String , 
     	required : true
     } , 
 
@@ -94,19 +94,23 @@ module.exports.updateProcState = function(id ,proc, options , callback){
 // Update a Processus
 module.exports.updateProc = function(id , proc, options ,callback){
 	var query = {_id: id};
-	var update = {
-		name: proc.name,  
-		entertime: proc.entertime, 
-		state: proc.state,
-        duration : proc.duration,
-        appsource : proc.appsource,
-        appdestination : proc.appdestination,
-        datatype : proc. datatype,
-        databrut : proc. databrut , 
-        evenements : proc.evenements
-}
+    Proc.findById(id,function(err,procancien){ //Recupère l'objet avec son id avant la mise a jour , garde les champs qui n'ont pas été modifié et met à jour les champs modifié
+        var update = {
+        name: proc.name || procancien.name,  
+        entertime: proc.entertime || procancien.entertime , 
+        state: proc.state || procancien.state,
+        duration : proc.duration || procancien.duration,
+        appsource : proc.appsource || procancien.appsource,
+        appdestination : proc.appdestination || procancien.appdestination,
+        datatype : proc. datatype || procancien.datatype,
+        databrut : proc. databrut || procancien.databrut 
+    }
+    
+    Proc.findOneAndUpdate(query,update,options,callback);
+    });
 
-	Proc.findOneAndUpdate(query,update,options,callback);
+
+	
 }
 
 module.exports.addEvent = function(proc){
@@ -120,7 +124,7 @@ module.exports.addEvent = function(proc){
 
 }
 
-// Delete a 
+// Delete a Processus 
 module.exports.removeProc = function(id,callback){
 	
 	Proc.findByIdAndRemove(id, callback);

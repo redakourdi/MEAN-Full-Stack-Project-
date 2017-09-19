@@ -172,3 +172,6 @@ export class ChartsComponent implements OnInit {
         this.remplirChar();
     }
 }
+
+
+

@@ -30,14 +30,16 @@ router.get('/listerAll' , function(req,res){
 		console.log(type) ; 
 		if (err) {                                           //
 			throw err ;                                       //
-		}                                                      //
+		}    
+		console.log(res.json(procs));                                                  //
 		 obj = procs ;                                         //                                 
 		 var arr = [] ; 
 		 if (type == "nationality"){                                         //
           for(var i=0 ; i<obj.length ; i++) // boucle qui parcoure les procs , parse la donnée brut et l'insère dans un nouveau tableau 
 		 {                                                                                              //
             if (obj[i].datatype == "xml"){                                                             //    // Vérifie le format Xml
-               parseString(obj[i].databrut , function (err, result) {                                 //
+               parseString(obj[i].databrut , function (err, result) {   
+               console.log(result.nationality)                              //
               arr.push(result.nationality);                                                          //
           });                                                                                       //
                                                                                                    //
@@ -115,12 +117,15 @@ router.post('/addProc',function( req , res){
 		if(err){
 			throw err;
 		}
+		
+	
 		res.json(proc);
 	}) ; 
 });
 
+
 // Update a Processus 
-router.put('/updateProc',function( req , res){
+router.put('/updateProc/:_id',function( req , res){
 	var id= req.params._id;
 	var proc = req.body;
 	Proc.updateProc(id, proc,{},function(err,proc){
@@ -150,20 +155,22 @@ router.delete('/removeProc/:id',function( req , res){
 
 // Get Processus By Id
 router.get('/temporaire/:id',function( req , res){ 
-//ici on va ajouter une endpoitn à chaque appel elle va inserer un evenemnt dans un proc, liste moi tous les proc d'abord
+//ici on va ajouter une endpoitn à chaque appel elle va inserer un evenemnt dans un proc
 	Proc.getProcById(req.params.id,function(err,proc){
 		
 		if(err){
 			throw err;
 		}
+		
 		proc.evenements.push({"etat" : "success", "description" : "Produit disponible","date" : new Date()});
-		proc.evenements.push({"etat" : "warn", "description" : "Fond disponible avec contraintes","date" : new Date()});
-		proc.evenements.push({"etat" : "warn", "description" : "Achat reussi avec un warn","date" : new Date()});
+		proc.evenements.push({"etat" : "sucess", "description" : "Fond disponible ","date" : new Date()});
+		proc.evenements.push({"etat" : "error", "description" : "Echec du Paiement ","date" : new Date()});
 		Proc.addEvent(proc);
 		console.log("succes");
 		
 	}) ; 
 });
+
 
 
 
