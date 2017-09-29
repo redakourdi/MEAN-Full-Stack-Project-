@@ -31,17 +31,22 @@ router.get('/listerAll' , function(req,res){
 		if (err) {                                           //
 			throw err ;                                       //
 		}    
-		console.log(res.json(procs));                                                  //
+
+		console.log(procs);                                                  //
 		 obj = procs ;                                         //                                 
 		 var arr = [] ; 
 		 if (type == "nationality"){                                         //
           for(var i=0 ; i<obj.length ; i++) // boucle qui parcoure les procs , parse la donnée brut et l'insère dans un nouveau tableau 
-		 {                                                                                              //
-            if (obj[i].datatype == "xml"){                                                             //    // Vérifie le format Xml
-               parseString(obj[i].databrut , function (err, result) {   
-               console.log(result.nationality)                              //
-              arr.push(result.nationality);                                                          //
-          });                                                                                       //
+			 {                                                                                              //
+	            if (obj[i].datatype == "xml"){
+	            console.log("Here is one XML parse") 
+	            console.log(obj[i].databrut);
+	                                        //    // Vérifie le format Xml
+	               parseString(obj[i].databrut , function (err, result) {   
+	               
+	               console.log(result['proc']['nationality'])                              //
+	              arr.push(result.nationality);                                                          //
+	          });                                                                                       //
                                                                                                    //
                                                                                                   //
            } else if (obj[i].datatype == "json"){                                                //     // Vérifie le format Json
@@ -61,23 +66,10 @@ router.get('/listerAll' , function(req,res){
           } 
                                                                                       //
                                                                                      //                 
-         function foo(arr) {                                                        //
-    var a = [], b = [], prev;                                                      //
-    arr.sort();                                                                   //
-    for ( var i = 0; i < arr.length; i++ ) {                                     //
-        if ( arr[i] !== prev ) {                                                //
-            a.push(arr[i]);                                                    //
-            b.push(1);                                                        //
-        } else {                                                             //
-            b[b.length-1]++;                                                //
-        }                                                                  //
-        prev = arr[i];                                                    //
-    }                                                                    //
-                                                                        //
-    return [a, b];                                                     //
-}                                                                     //
-                                                                     //
-    var result = foo(arr);                                          //
+	console.log("The start")                                                                 //
+    console.log(arr)                                                                 //
+    var result = foo(arr);
+    console.log(result)                                          //
     var pourcentages = [];                                         //
     for (var i = 0; i < result[0].length ; i++){                  //      
 	var perc = { critere : ""};                              //                        
@@ -95,7 +87,21 @@ router.get('/listerAll' , function(req,res){
                     //GetStats
           //GetStats
 //GetStats
-
+         function foo(arr) {                                                        //
+    var a = [], b = [], prev;                                                      //
+    arr.sort();                                                                   //
+    for ( var i = 0; i < arr.length; i++ ) {                                     //
+        if ( arr[i] !== prev ) {                                                //
+            a.push(arr[i]);                                                    //
+            b.push(1);                                                        //
+        } else {                                                             //
+            b[b.length-1]++;                                                //
+        }                                                                  //
+        prev = arr[i];                                                    //
+    }                                                                    //
+                                                                        //
+    return [a, b];                                                     //
+}
 
 // Get Processus By Id
 router.get('/listerOne/:id',function( req , res){

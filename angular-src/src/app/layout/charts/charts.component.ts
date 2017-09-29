@@ -156,12 +156,12 @@ export class ChartsComponent implements OnInit {
         error => console.log(error),
         () => {
     
-        })
-
             for(let i = 0 ; i < this.pourcentages.length ; i++){
               this.doughnutChartLabels[i] = (this.pourcentages[i].critere);
               this.doughnutChartData[i] = (this.pourcentages[i].pourcentage);
         }
+        })
+
         
     }
 

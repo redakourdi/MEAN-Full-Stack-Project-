@@ -77,7 +77,7 @@ export class TablesComponent implements OnInit {
 
   
      private getProcState(proc) : string{
-     let etat = "success" ; 
+     let etat = proc.state; 
      for (let e of proc.evenements){
        if(e.etat == "error")
        {
@@ -88,6 +88,9 @@ export class TablesComponent implements OnInit {
          {
              etat = "warn";
          }
+     }
+     if(etat==''){
+         etat="success";
      }
      return etat;
    }
